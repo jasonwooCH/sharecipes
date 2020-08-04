@@ -1,16 +1,30 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { Fragment, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-const Landing = props => {
+import { getRecipes } from '../../actions/recipe';
+
+const Landing = ({ getRecipes, recipe: { recipes } }) => {
+  useEffect(() => {
+    getRecipes();
+  }, [getRecipes]);
+
   return (
-    <div>
-      Hello Landing
-    </div>
-  )
-}
+    <Fragment>
+      <div className="recipes">
+        {recipes.length > 0 ? recipes.map((recipe) => <p>Recipe Found</p>) : <h4>No Recipes found...</h4>}
+      </div>
+    </Fragment>
+  );
+};
 
 Landing.propTypes = {
+  getRecipes: PropTypes.func.isRequired,
+  recipe: PropTypes.object.isRequired,
+};
 
-}
+const mapStateToProps = (state) => ({
+  recipe: state.recipe,
+});
 
-export default Landing
+export default connect(mapStateToProps, { getRecipes })(Landing);
