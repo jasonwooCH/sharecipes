@@ -26,7 +26,7 @@ const RecipeSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  publisehd: {
+  published: {
     type: Boolean,
     default: false,
   },

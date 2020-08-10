@@ -6,8 +6,9 @@ import Navbar from './components/layout/Navbar';
 import Landing from './components/layout/Landing';
 
 // Redux
-import { Provider } from "react-redux";
-import store from "./store";
+import { Provider } from 'react-redux';
+import store from './store';
+import RecipePage from './components/recipe/RecipePage';
 
 function App() {
   return (
@@ -15,7 +16,10 @@ function App() {
       <Router>
         <Fragment>
           <Navbar />
-          <Route exact path="/" component={Landing} />
+          <section className="container">
+            <Route exact path="/" component={Landing} />
+            <Route exact path="/recipe/:id" component={RecipePage} />
+          </section>
         </Fragment>
       </Router>
     </Provider>

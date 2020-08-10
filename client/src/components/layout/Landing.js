@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { getRecipes } from '../../actions/recipe';
+import RecipePost from '../recipe/RecipePost';
 
 const Landing = ({ getRecipes, recipe: { recipes } }) => {
   useEffect(() => {
@@ -12,7 +13,11 @@ const Landing = ({ getRecipes, recipe: { recipes } }) => {
   return (
     <Fragment>
       <div className="recipes">
-        {recipes.length > 0 ? recipes.map((recipe) => <p>Recipe Found</p>) : <h4>No Recipes found...</h4>}
+        {recipes.length > 0 ? (
+          recipes.map((recipe) => <RecipePost key={recipe._id} recipe={recipe} />)
+        ) : (
+          <h4>No Recipes found...</h4>
+        )}
       </div>
     </Fragment>
   );

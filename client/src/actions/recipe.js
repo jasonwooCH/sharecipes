@@ -1,14 +1,31 @@
 import axios from 'axios';
 
-import { GET_RECIPES, RECIPE_ERROR } from './types';
+import { GET_RECIPES, RECIPE_ERROR, GET_RECIPE } from './types';
 
 export const getRecipes = () => async (dispatch) => {
   try {
-    console.log("Making GET Recipes API");
+    console.log('Making GET Recipes API');
     const res = await axios.get('/api/recipes');
 
     dispatch({
       type: GET_RECIPES,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: RECIPE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+export const getRecipeById = (recipeId) => async (dispatch) => {
+  try {
+    console.log('Making GET Recipe by Id API');
+    const res = await axios.get(`/api/recipes/${recipeId}`);
+
+    dispatch({
+      type: GET_RECIPE,
       payload: res.data,
     });
   } catch (err) {
