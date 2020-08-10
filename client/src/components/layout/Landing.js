@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import { getRecipes } from '../../actions/recipe';
 import RecipePost from '../recipe/RecipePost';
+import { Link } from 'react-router-dom';
 
 const Landing = ({ getRecipes, recipe: { recipes } }) => {
   useEffect(() => {
@@ -12,6 +13,10 @@ const Landing = ({ getRecipes, recipe: { recipes } }) => {
 
   return (
     <Fragment>
+      <Link to="/create-recipe" className="btn btn-light mt-3">
+        Create a Recipe
+      </Link>
+
       <div className="recipes">
         {recipes.length > 0 ? (
           recipes.map((recipe) => <RecipePost key={recipe._id} recipe={recipe} />)

@@ -6,15 +6,13 @@ const RecipePost = ({ recipe: { _id, title, author, date, ingredients, instructi
   return (
     <div className="card bg-light mb-3">
       <div className="card-body">
-        <h5>
+        <h4>
           <Link to={`/recipe/${_id}`} className="card-title">
             {title}
           </Link>
-        </h5>
-        <p className="card-text">
-          <p>By: {author}</p>
-          <p>Published: {date}</p>
-        </p>
+        </h4>
+        <p className="card-text">By: {author}</p>
+        <p className="card-text">Published: {date}</p>
       </div>
     </div>
   );

@@ -9,6 +9,7 @@ import Landing from './components/layout/Landing';
 import { Provider } from 'react-redux';
 import store from './store';
 import RecipePage from './components/recipe/RecipePage';
+import CreateRecipe from './components/recipe-form/CreateRecipe';
 
 function App() {
   return (
@@ -18,7 +19,8 @@ function App() {
           <Navbar />
           <section className="container">
             <Route exact path="/" component={Landing} />
-            <Route exact path="/recipe/:id" component={RecipePage} />
+            <Route exact path="/recipes/:id" component={RecipePage} />
+            <Route exact path="/create-recipe" component={CreateRecipe} />
           </section>
         </Fragment>
       </Router>
