@@ -12,13 +12,15 @@ const CreateRecipe = ({ createRecipe, history }) => {
     ingredients: [],
     instructions: [],
   });
+  const { title, author, ingredients, instructions } = formData;
 
   const [ingredient, setIngredient] = useState({
     item: '',
     amount: '',
   });
+  const { item, amount } = ingredient;
 
-  const { title, author, ingredients, instructions } = formData;
+  const [instruction, setInstruction] = useState('');
 
   const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -29,6 +31,16 @@ const CreateRecipe = ({ createRecipe, history }) => {
   const handleAddNewIngredient = (e) => {
     const newList = formData.ingredients.concat(ingredient);
     setFormData({ ...formData, ingredients: newList });
+    setIngredient({
+      item: '',
+      amount: '',
+    });
+  };
+
+  const handleAddNewInstruction = () => {
+    const newList = formData.instructions.concat(instruction);
+    setFormData({ ...formData, instructions: newList });
+    setInstruction('');
   };
 
   const onSubmit = (e) => {
@@ -73,6 +85,7 @@ const CreateRecipe = ({ createRecipe, history }) => {
               className="form-control"
               id="recipeIngredient"
               name="item"
+              value={item}
               placeholder="Flour ..."
               onChange={(e) => handleIngredientUpdate(e)}
             />
@@ -81,6 +94,7 @@ const CreateRecipe = ({ createRecipe, history }) => {
               className="form-control"
               id="ingredientAmount"
               name="amount"
+              value={amount}
               placeholder="1/4 Cup ..."
               onChange={(e) => handleIngredientUpdate(e)}
             />
@@ -90,24 +104,24 @@ const CreateRecipe = ({ createRecipe, history }) => {
               </button>
             </div>
           </div>
+          <ul className="list-group mx-3 mb-3">
+            {ingredients.map((entry, idx) => {
+              return (
+                <li className="list-group-item clearfix">
+                  {entry.amount} {entry.item}
+                  <span className="float-right">
+                    <button className="btn btn-outline-light btn-sm">
+                      <img src={edit} alt="Edit" style={{ height: 20, width: 20 }} />
+                    </button>
+                    <button className="btn btn-outline-light btn-sm">
+                      <img src={trash} alt="Delete" style={{ height: 20, width: 20 }} />
+                    </button>
+                  </span>
+                </li>
+              );
+            })}
+          </ul>
         </div>
-        <ul className="list-group mx-3">
-          {ingredients.map((entry, idx) => {
-            return (
-              <li className="list-group-item clearfix align-middle">
-                {entry.amount} {entry.item}
-                <span className="float-right">
-                  <button className="btn btn-outline-light btn-sm">
-                    <img src={edit} alt="Edit" style={{ height: 20, width: 20 }} />
-                  </button>
-                  <button className="btn btn-outline-light btn-sm">
-                    <img src={trash} alt="Delete" style={{ height: 20, width: 20 }} />
-                  </button>
-                </span>
-              </li>
-            );
-          })}
-        </ul>
 
         <div className="form-group">
           <label for="recipeInstructions">Step-by-Step Instructions</label>
@@ -116,14 +130,33 @@ const CreateRecipe = ({ createRecipe, history }) => {
               type="text"
               className="form-control"
               id="recipeInstructions"
+              value={instruction}
               placeholder="Bring a pot of water to a boil ..."
+              onChange={(e) => setInstruction(e.target.value)}
             />
             <div class="input-group-append">
-              <button class="btn btn-outline-secondary" type="button">
+              <button class="btn btn-outline-secondary" type="button" onClick={() => handleAddNewInstruction()}>
                 Add Step
               </button>
             </div>
           </div>
+          <ol className="list-group-flush mx-3">
+            {instructions.map((entry, idx) => {
+              return (
+                <li className="list-group-item clearfix">
+                  {idx + 1}. {entry}
+                  <span className="float-right">
+                    <button className="btn btn-outline-light btn-sm">
+                      <img src={edit} alt="Edit" style={{ height: 20, width: 20 }} />
+                    </button>
+                    <button className="btn btn-outline-light btn-sm">
+                      <img src={trash} alt="Delete" style={{ height: 20, width: 20 }} />
+                    </button>
+                  </span>
+                </li>
+              );
+            })}
+          </ol>
         </div>
 
         <input type="submit" className="btn btn-secondary my-1" />
